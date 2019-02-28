@@ -7,11 +7,15 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
+    <form method="post" action="filter">
+        <input type="text" name="shortName" placeholder="Короткое имя клуба">
+        <button type="submit">Найти</button>
+    </form>
     <div>Список команд</div>
     {{#teams}}
         <div>
-            <b>{{shortName}}</b>
-            <span>{{name}}</span>
+            <b>{{#shortName}}{{.}}{{/shortName}}</b>
+            <span>{{#name}}{{.}}{{/name}}</span>
         </div>
     {{/teams}}
 </body>

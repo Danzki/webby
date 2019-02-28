@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -37,15 +39,25 @@ public class GreetingController<postmapping> {
     public String add(@RequestParam String shortName, @RequestParam String name,
                       Map<String, Object> model) {
         Team team = new Team(name, shortName);
-
         teamRepo.save(team);
-
         Iterable<Team> teams = teamRepo.findAll();
-
         model.put("teams", teams);
 
         return "main";
     }
 
+    @PostMapping("filter")
+    public String filter(@RequestParam String shortName,
+                         Map<String, Object> model) {
+        Iterable<Team> teams;
 
+        if (shortName != null && !shortName.isEmpty()) {
+            teams = teamRepo.findByShortName(shortName);
+        } else {
+            teams = teamRepo.findAll();
+        }
+        model.put("teams", teams);
+
+        return "main";
+    }
 }

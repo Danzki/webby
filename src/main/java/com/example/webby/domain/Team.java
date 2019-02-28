@@ -3,20 +3,20 @@ package com.example.webby.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Team")
+@Table(name = "TEAM")
 public class Team {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer teamId;
-    private String Name;
-    private String ShortName;
+    private String name;
+    private String shortName;
 
     public Team() {
     }
 
     public Team(String name, String shortName) {
-        Name = name;
-        ShortName = shortName;
+        this.name = name;
+        this.shortName = shortName;
     }
 
     public Integer getTeamId() {
@@ -24,21 +24,20 @@ public class Team {
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getShortName() {
-        return ShortName;
+        return shortName;
     }
 
     public void setShortName(String shortName) {
-        ShortName = shortName;
+        this.shortName = shortName;
     }
-
 }
 
 
