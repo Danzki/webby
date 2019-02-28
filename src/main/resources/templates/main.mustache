@@ -1,5 +1,7 @@
 <html>
 <body>
+    <div><h1>Команды</h1></div>
+    <div><h2>Добавление команды</h2></div>
     <div>
         <form method="post">
             <input type="text" name="shortName" placeholder="Введите короткое имя">
@@ -7,15 +9,17 @@
             <button type="submit">Добавить</button>
         </form>
     </div>
+    <div><h2>Поиск команды</h2></div>
     <form method="post" action="filter">
         <input type="text" name="shortName" placeholder="Короткое имя клуба">
         <button type="submit">Найти</button>
     </form>
-    <div>Список команд</div>
+    <div><h2>Список команд</h2></div>
     {{#teams}}
         <div>
             <b>{{#shortName}}{{.}}{{/shortName}}</b>
             <span>{{#name}}{{.}}{{/name}}</span>
+            <a href="/driver?team={{shortName}}">Change driver</a>
         </div>
     {{/teams}}
 </body>

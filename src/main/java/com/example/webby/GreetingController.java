@@ -1,6 +1,7 @@
 package com.example.webby;
 
 import com.example.webby.domain.Team;
+import com.example.webby.repos.DriverRepo;
 import com.example.webby.repos.TeamRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class GreetingController<postmapping> {
     @Autowired
     private TeamRepo teamRepo;
+    private DriverRepo driverRepo;
 
     @GetMapping("/greeting")
     public String greeting(
@@ -60,4 +62,18 @@ public class GreetingController<postmapping> {
 
         return "main";
     }
+
+    @GetMapping("/driver")
+    public String driver(
+            @RequestParam(name="shortName", required=false, defaultValue="All") String shortName,
+            Map<String, Object> model
+    ) {
+        Iterable<Team> teams;
+        teams = teamRepo.findByShortName(shortName);
+        String name=teams.iterator().next().getName();
+        model.put("name", name);
+
+        return "driver";
+    }
+
 }
