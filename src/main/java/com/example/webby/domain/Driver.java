@@ -33,7 +33,7 @@ public class Driver {
         this.owner = user;
     }
 
-    
+    //TODO : function for setting active = false for all previous Driver of a user
 
     public String getOwnerName() {
         return owner != null ? owner.getUsername() : "<none>";

@@ -7,6 +7,7 @@ import com.example.webby.repos.TeamRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +26,17 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model){
+    public String main(@RequestParam(required = false, defaultValue = "") String shortName,
+                       Model model){
         Iterable<Team> teams = teamRepo.findAll();
+        if (shortName != null && !shortName.isEmpty()) {
+            teams = teamRepo.findByShortName(shortName);
+        } else {
+            teams = teamRepo.findAll();
+        }
+        model.addAttribute("teams", teams);
+        model.addAttribute("shortName", shortName);
 
-        model.put("teams", teams);
         return "main";
     }
 
@@ -46,18 +54,4 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("filter")
-    public String filter(@RequestParam String shortName,
-                         Map<String, Object> model) {
-        Iterable<Team> teams;
-
-        if (shortName != null && !shortName.isEmpty()) {
-            teams = teamRepo.findByShortName(shortName);
-        } else {
-            teams = teamRepo.findAll();
-        }
-        model.put("teams", teams);
-
-        return "main";
-    }
 }
