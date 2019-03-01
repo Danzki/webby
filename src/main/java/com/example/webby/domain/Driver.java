@@ -11,6 +11,8 @@ public class Driver {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer driverId;
     private String name;
+    private boolean active;
+    //private User owner;
 
     @OneToMany(
             mappedBy = "driver",
@@ -22,9 +24,9 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(String name, List<Team> teams) {
+    public Driver(String name, boolean active) {
         this.name = name;
-        this.teams = teams;
+        this.active = active;
     }
 
     public String getName() {

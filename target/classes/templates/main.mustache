@@ -1,17 +1,30 @@
 <html>
 <body>
+    <div>
+        <form action="/logout" method="post">
+            <input type="submit" value="Sign Out"/>
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        </form>
+    </div>
+    <div><h1>Профиль драйвера</h1></div>
+    <div>
+        Текущий профиль - ....
+    </div>
+    <a href="/driver">Добавить профиль</a>
     <div><h1>Команды</h1></div>
     <div><h2>Добавление команды</h2></div>
     <div>
         <form method="post">
             <input type="text" name="shortName" placeholder="Введите короткое имя">
             <input type="text" name="name" placeholder="Введите название команды">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
             <button type="submit">Добавить</button>
         </form>
     </div>
     <div><h2>Поиск команды</h2></div>
     <form method="post" action="filter">
         <input type="text" name="shortName" placeholder="Короткое имя клуба">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
         <button type="submit">Найти</button>
     </form>
     <div><h2>Список команд</h2></div>
@@ -19,7 +32,7 @@
         <div>
             <b>{{#shortName}}{{.}}{{/shortName}}</b>
             <span>{{#name}}{{.}}{{/name}}</span>
-            <a href="/driver?team={{shortName}}">Change driver</a>
+          <!--  <a href="/driver?team={{shortName}}">Change driver</a>  -->
         </div>
     {{/teams}}
 </body>

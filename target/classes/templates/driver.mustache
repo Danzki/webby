@@ -1,9 +1,23 @@
 <html>
     <body>
-        <div>Please change driver for the team {{shortName}}</div>
-        <form method="post">
-            <input type="text" name="Name" placeholder="Введите имя драйвера">
-            <button type="submit">Добавить</button>
-        </form>
+        <div>
+            <div>
+                <b>Добавление профиля</b>
+            </div>
+            <div>
+                Внимание! Новый профиль становится активным.
+            </div>
+            <form method="post" action="adddriver">
+                <input type="text" name="name" placeholder="Введите короткое имя">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+                <button type="submit">Добавить</button>
+            </form>
+        </div>
+        {{#drivers}}
+            <div>
+                {{#name}}{{.}}{{/name}}
+            </div>
+        {{/drivers}}
+        <a href="/main">Main page</a>
     </body>
 </html>
