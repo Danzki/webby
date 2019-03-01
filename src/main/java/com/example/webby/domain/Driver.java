@@ -12,7 +12,10 @@ public class Driver {
     private Integer driverId;
     private String name;
     private boolean active;
-    //private User owner;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User owner;
 
     @OneToMany(
             mappedBy = "driver",
@@ -24,9 +27,16 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(String name, boolean active) {
+    public Driver(String name, boolean active, User user) {
         this.name = name;
         this.active = active;
+        this.owner = user;
+    }
+
+    
+
+    public String getOwnerName() {
+        return owner != null ? owner.getUsername() : "<none>";
     }
 
     public String getName() {
@@ -35,5 +45,21 @@ public class Driver {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 }

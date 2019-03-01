@@ -2,8 +2,10 @@ package com.example.webby.controller;
 
 import com.example.webby.domain.Driver;
 import com.example.webby.domain.Team;
+import com.example.webby.domain.User;
 import com.example.webby.repos.TeamRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +33,11 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String add(@RequestParam String shortName, @RequestParam String name,
-                      Map<String, Object> model) {
+    public String add(
+                    @AuthenticationPrincipal User user,
+                    @RequestParam String shortName,
+                    @RequestParam String name,
+                    Map<String, Object> model) {
         Team team = new Team(name, shortName);
         teamRepo.save(team);
         Iterable<Team> teams = teamRepo.findAll();
